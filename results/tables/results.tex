@@ -1,0 +1,83 @@
+% Seed-level dispersion
+
+\begin{table}
+\caption{Seed-level dispersion (model uncertainty).}
+\label{tab:dispersion}
+\begin{tabular}{lllllrrrll}
+\toprule
+language & task & condition & level & metric & mean & sd & seeds & ci95 & flag \\
+\midrule
+ind & classifier\_probe & BPE & F1 & macro\_f1 & 0.900000 & 0.006000 & 3 & [0.89, 0.91] &  \\
+ind & classifier\_probe & MORPHAUSTRO & F1 & macro\_f1 & 0.903000 & 0.003000 & 3 & [0.90, 0.91] &  \\
+ind & classifier\_probe & SCRAMBLED & F1 & macro\_f1 & 0.896000 & 0.002000 & 3 & [0.89, 0.90] &  \\
+tgl & mt\_flores & BPE & F0 & chrf & 10.435000 & 2.265000 & 3 & [4.81, 16.06] &  \\
+tgl & mt\_flores & BPE & F1 & chrf & 9.287000 & 2.367000 & 3 & [3.41, 15.17] &  \\
+tgl & mt\_flores & BPE & F2 & chrf & 7.482000 & 1.577000 & 3 & [3.56, 11.40] &  \\
+tgl & mt\_flores & MORPHAUSTRO & F0 & chrf & 11.348000 & 2.180000 & 3 & [5.93, 16.76] &  \\
+tgl & mt\_flores & MORPHAUSTRO & F1 & chrf & 10.478000 & 2.527000 & 3 & [4.20, 16.76] &  \\
+tgl & mt\_flores & MORPHAUSTRO & F2 & chrf & 10.928000 & 1.340000 & 3 & [7.60, 14.26] &  \\
+tgl & mt\_flores & SCRAMBLED & F1 & chrf & 10.620000 & 3.530000 & 3 & [1.85, 19.39] &  \\
+tgl & mt\_flores & SCRAMBLED & F2 & chrf & 10.243000 & 2.560000 & 3 & [3.88, 16.60] &  \\
+tgl & mt\_indomain & BPE & F0 & chrf & 9.875000 & 1.864000 & 3 & [5.24, 14.51] &  \\
+tgl & mt\_indomain & BPE & F1 & chrf & 8.787000 & 2.115000 & 3 & [3.53, 14.04] &  \\
+tgl & mt\_indomain & BPE & F2 & chrf & 6.913000 & 1.444000 & 3 & [3.33, 10.50] &  \\
+tgl & mt\_indomain & MORPHAUSTRO & F0 & chrf & 11.116000 & 1.894000 & 3 & [6.41, 15.82] &  \\
+tgl & mt\_indomain & MORPHAUSTRO & F1 & chrf & 10.096000 & 2.277000 & 3 & [4.44, 15.75] &  \\
+tgl & mt\_indomain & MORPHAUSTRO & F2 & chrf & 10.890000 & 0.789000 & 3 & [8.93, 12.85] &  \\
+tgl & mt\_indomain & SCRAMBLED & F1 & chrf & 10.393000 & 2.997000 & 3 & [2.95, 17.84] &  \\
+tgl & mt\_indomain & SCRAMBLED & F2 & chrf & 10.276000 & 2.132000 & 3 & [4.98, 15.57] &  \\
+tgl & ner & BPE & F0 & f1 & 0.646000 & 0.029000 & 3 & [0.57, 0.72] &  \\
+tgl & ner & BPE & F1 & f1 & 0.646000 & 0.026000 & 3 & [0.58, 0.71] &  \\
+tgl & ner & BPE & F2 & f1 & 0.649000 & 0.012000 & 3 & [0.62, 0.68] &  \\
+tgl & ner & MORPHAUSTRO & F0 & f1 & 0.648000 & 0.017000 & 3 & [0.61, 0.69] &  \\
+tgl & ner & MORPHAUSTRO & F1 & f1 & 0.665000 & 0.012000 & 3 & [0.63, 0.70] &  \\
+tgl & ner & MORPHAUSTRO & F2 & f1 & 0.667000 & 0.015000 & 3 & [0.63, 0.70] &  \\
+tgl & ner & SCRAMBLED & F1 & f1 & 0.636000 & 0.008000 & 3 & [0.62, 0.66] &  \\
+tgl & ner & SCRAMBLED & F2 & f1 & 0.662000 & 0.004000 & 3 & [0.65, 0.67] &  \\
+tgl & voice\_probe & BPE & F0 & macro\_f1 & 0.883000 & 0.021000 & 3 & [0.83, 0.93] &  \\
+tgl & voice\_probe & BPE & F1 & macro\_f1 & 0.930000 & 0.010000 & 3 & [0.90, 0.96] &  \\
+tgl & voice\_probe & BPE & F2 & macro\_f1 & 0.931000 & 0.020000 & 3 & [0.88, 0.98] &  \\
+tgl & voice\_probe & MORPHAUSTRO & F0 & macro\_f1 & 1.000000 & 0.000000 & 3 & [1.00, 1.00] & circular \\
+tgl & voice\_probe & MORPHAUSTRO & F1 & macro\_f1 & 1.000000 & 0.000000 & 3 & [1.00, 1.00] & circular \\
+tgl & voice\_probe & MORPHAUSTRO & F2 & macro\_f1 & 0.998000 & 0.000000 & 3 & [1.00, 1.00] & circular \\
+tgl & voice\_probe & SCRAMBLED & F1 & macro\_f1 & 0.931000 & 0.014000 & 3 & [0.90, 0.97] &  \\
+tgl & voice\_probe & SCRAMBLED & F2 & macro\_f1 & 0.944000 & 0.009000 & 3 & [0.92, 0.97] &  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% Paired bootstrap, Holm-corrected
+
+\begin{table}
+\caption{Paired bootstrap over matched test examples, Holm-corrected.}
+\label{tab:bootstrap}
+\begin{tabular}{llllrrrrrrrr}
+\toprule
+language & task & contrast & fertility\_level & delta & ci\_lo & ci\_hi & n & p\_value & p\_holm & reject & circular \\
+\midrule
+tgl & mt\_flores & MORPHAUSTRO - BPE & F0 & 0.844000 & 0.682000 & 1.011000 & 500 & 0.000000 & 0.000000 & True & False \\
+tgl & mt\_indomain & MORPHAUSTRO - BPE & F0 & 1.168000 & 0.908000 & 1.435000 & 300 & 0.000000 & 0.000000 & True & False \\
+tgl & ner & MORPHAUSTRO - BPE & F0 & 0.000000 & -0.016000 & 0.016000 & 1000 & 0.981600 & 1.000000 & False & False \\
+tgl & voice\_probe & MORPHAUSTRO - BPE & F0 & 0.116000 & 0.104000 & 0.129000 & 1200 & 0.000000 & 0.000000 & True & True \\
+tgl & mt\_flores & MORPHAUSTRO - BPE & F1 & 1.488000 & 1.291000 & 1.690000 & 500 & 0.000000 & 0.000000 & True & False \\
+tgl & mt\_indomain & MORPHAUSTRO - BPE & F1 & 1.631000 & 1.353000 & 1.920000 & 300 & 0.000000 & 0.000000 & True & False \\
+tgl & ner & MORPHAUSTRO - BPE & F1 & 0.013000 & -0.002000 & 0.028000 & 1000 & 0.090200 & 0.644800 & False & False \\
+tgl & voice\_probe & MORPHAUSTRO - BPE & F1 & 0.070000 & 0.059000 & 0.081000 & 1200 & 0.000000 & 0.000000 & True & True \\
+tgl & mt\_flores & SCRAMBLED - BPE & F1 & 1.543000 & 1.366000 & 1.719000 & 500 & 0.000000 & 0.000000 & True & False \\
+tgl & mt\_indomain & SCRAMBLED - BPE & F1 & 1.828000 & 1.544000 & 2.122000 & 300 & 0.000000 & 0.000000 & True & False \\
+tgl & ner & SCRAMBLED - BPE & F1 & -0.010000 & -0.026000 & 0.006000 & 1000 & 0.210300 & 0.919000 & False & False \\
+tgl & voice\_probe & SCRAMBLED - BPE & F1 & 0.001000 & -0.013000 & 0.016000 & 1200 & 0.888400 & 1.000000 & False & False \\
+tgl & mt\_flores & MORPHAUSTRO - BPE & F2 & 3.396000 & 3.213000 & 3.580000 & 500 & 0.000000 & 0.000000 & True & False \\
+tgl & mt\_indomain & MORPHAUSTRO - BPE & F2 & 3.933000 & 3.633000 & 4.237000 & 300 & 0.000000 & 0.000000 & True & False \\
+tgl & ner & MORPHAUSTRO - BPE & F2 & 0.016000 & 0.000000 & 0.031000 & 1000 & 0.046700 & 0.420300 & False & False \\
+tgl & voice\_probe & MORPHAUSTRO - BPE & F2 & 0.068000 & 0.055000 & 0.080000 & 1200 & 0.000000 & 0.000000 & True & True \\
+ind & classifier\_probe & MORPHAUSTRO - BPE & F1 & 0.003000 & -0.002000 & 0.009000 & 1200 & 0.255300 & 0.919000 & False & False \\
+ind & classifier\_probe & SCRAMBLED - BPE & F1 & -0.004000 & -0.009000 & 0.001000 & 1200 & 0.183800 & 0.919000 & False & False \\
+tgl & mt\_flores & SCRAMBLED - BPE & F2 & 2.735000 & 2.540000 & 2.935000 & 500 & 0.000000 & 0.000000 & True & False \\
+tgl & mt\_indomain & SCRAMBLED - BPE & F2 & 3.293000 & 2.987000 & 3.606000 & 300 & 0.000000 & 0.000000 & True & False \\
+tgl & ner & SCRAMBLED - BPE & F2 & 0.013000 & -0.003000 & 0.029000 & 1000 & 0.096600 & 0.644800 & False & False \\
+tgl & voice\_probe & SCRAMBLED - BPE & F2 & 0.014000 & -0.001000 & 0.029000 & 1200 & 0.080600 & 0.644800 & False & False \\
+\bottomrule
+\end{tabular}
+\end{table}

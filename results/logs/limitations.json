@@ -1,0 +1,10 @@
+[
+  "Lines that could not be round-tripped exactly by every tokenizer condition were excluded from all splits: {'tgl': 1, 'ind': 0}. A non-invertible line would be mis-decoded if kept, so exclusion is strictly safer; the rate is under 0.5% and identical across conditions.",
+  "PROBE CIRCULARITY (measured): the Tagalog voice probe is solved outright by a trivial baseline that reads the <INF:...> token alone -- G15 accuracy 1.000 under MorphAustro-Tok vs 0.000 under matched BPE. It is reported as DIAGNOSTIC, not evidential, and carries no independent weight for H1; H1 rests on MT and NER, which are non-circular. The Indonesian classifier-agreement probe is a corruption-judgment task and is unaffected.",
+  "DESIGN REVISION (measured, not preferred): the Indonesian MT and NER arms were cut after the live gate run showed MorphAustro-Tok and matched BPE separate by only 0.18% in tokens/char on Indonesian (vs 7.00% on Tagalog), the mechanism touching 0.258% of tokens. H2 is tested by the classifier-agreement probe alone; its MT and NER claims go unrun. The freed 4.41 GPU-hours fund 5 seeds on Tagalog instead of 3 (t_crit 4.30 -> 2.78).",
+  "Malay/Indonesian pooling: REFUSED on measured FLORES+ divergence {'n_pairs': 997.0, 'identical_frac': 0.0, 'token_identical_frac': 0.0, 'mean_edit_ratio': 0.42486093184204343, 'type_jaccard': 0.3906840117498951}; ind runs alone.",
+  "Tagalog train (ParaCrawl, tgl) / test (FLORES+, fil_Latn) register gap: {'type_jaccard': 0.17865858167566367, 'test_types_unseen_in_train': 0.6088082901554405}.",
+  "LID backend for bitext filtering: function_word_heuristic.",
+  "MT training bitext is web-mined ParaCrawl; absolute scores are low and only controlled within-language contrasts are interpretable.",
+  "G9 is text-level only: OPUS Moses format carries no URL metadata, so URL-level contamination checking is not possible on the training side."
+]

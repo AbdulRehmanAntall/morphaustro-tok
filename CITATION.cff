@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use MorphAustro-Tok or the scrambled-morpheme control, please cite the paper below."
+title: "MorphAustro-Tok"
+repository-code: "https://github.com/AbdulRehmanAntall/morphaustro-tok"
+authors:
+  - family-names: Antall
+    given-names: Abdul Rehman
+    affiliation: "National University of Computer and Emerging Sciences (FAST-NUCES), Lahore, Pakistan"
+  - family-names: Saha
+    given-names: Baidya Nath
+    affiliation: "Concordia University of Edmonton, Alberta, Canada"
+preferred-citation:
+  type: article
+  title: "Does Morphological Correctness Matter for Tokenization? A Scrambled Control Study in Tagalog"
+  authors:
+    - family-names: Antall
+      given-names: Abdul Rehman
+    - family-names: Saha
+      given-names: Baidya Nath
+  year: 2026

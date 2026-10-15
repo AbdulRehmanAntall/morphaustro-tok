@@ -1,0 +1,224 @@
+{
+  "achieved": [
+    "Fixed global seed; per-run reseeding; config + architecture fingerprints on every checkpoint, with stale artefacts refused rather than resumed.",
+    "Pinned dependency FLOORS verified post-import (exact pins were unsatisfiable on CPython 3.13); resolved versions recorded in the manifest.",
+    "SHA-256 provenance on every corpus; pinned OPUS release URLs; a failed fetch raises and never substitutes.",
+    "Gates G1a/G1b/G1c, G2-G16 as runnable code that halts on failure. Nine defects were caught at gate time, including an NFC offset error that silently corrupted a fraction of decoded MT output.",
+    "Seed dispersion and paired bootstrap reported separately, Holm-corrected, computed in code and written to CSV/JSON.",
+    "MT, NER and probes share a tokenizer build and config_hash per run, so the task-transfer comparison is well posed.",
+    "Scrambled control present at fertility level(s) ['F1', 'F2']."
+  ],
+  "not_achieved": [
+    "Bitwise determinism: T4 fp16 reductions under AMP are not bitwise reproducible. Protocol-level reproducibility is claimed; bitwise reproducibility of a forward pass is not.",
+    "Indonesian MT and NER: cut on measured evidence (0.18% fertility separation vs 7.00% for Tagalog). H2 rests on the classifier-agreement probe alone, which returned null.",
+    "Scrambled control absent at level(s) ['F0']; effects there are uncontrolled.",
+    "Supervision-ladder rung 3 (full morphological analyzer): no maintained Philippine analyzer exists off the shelf; rungs 1-2 only. G1a coverage 9/10 fixture roots.",
+    "Tagalog UD tagging: TRG=55 and Ugnayan=94 sentences, unusable; WikiANN tl substituted and the substitution logged.",
+    "URL-level contamination checking: OPUS Moses format carries no URL metadata, so G9 is text-level only. Measured contamination was 0.0% by exact, near-duplicate and containment matching.",
+    "Strong LID for bitext filtering unless lid.176.ftz is supplied; the function-word fallback is weak on short sentences.",
+    "Every model is under-trained at ~1.6 epochs (1,500 MT steps), with greedy decoding and evaluation capped at 500 FLORES / 300 in-domain sentences. This applies identically across conditions, so contrasts hold while absolute scores are floor-level (chrF 6-11).",
+    "The Tagalog voice probe is circular by construction (G15 trivial-baseline accuracy 1.000 under MorphAustro-Tok, 0.000 under BPE) and carries no evidential weight.",
+    "Tagalog train/test register gap: ParaCrawl is labelled Tagalog, FLORES+ is Filipino (fil_Latn); type-Jaccard 0.179 with 60.9% of test types unseen in training."
+  ],
+  "gpu_hours_productive": 0.764,
+  "gpu_hours_void_and_overhead": 6.317,
+  "gpu_hours_ledger_total": 7.081,
+  "gpu_hours_cap": 10.0,
+  "void_run_note": "Runs before the throughput rescale halted MT mid-training and left NER at step 1/3000 and the voice probe at step 1/1500. Their rows are excluded from analysis; their compute remains in the ledger.",
+  "seeds_planned": [
+    13,
+    17,
+    23
+  ],
+  "seeds_run": [
+    13,
+    17,
+    23
+  ],
+  "runs_completed": 33,
+  "runs_by_arm": {
+    "tgl/MORPHAUSTRO": 9,
+    "tgl/BPE": 9,
+    "tgl/SCRAMBLED": 6,
+    "ind/MORPHAUSTRO": 3,
+    "ind/BPE": 3,
+    "ind/SCRAMBLED": 3
+  },
+  "findings": {
+    "H1_infix_aware_helps_tagalog_MT": "NOT SUPPORTED as a typological claim",
+    "H2_classifier_aware_helps_indonesian": "NOT SUPPORTED (d=+0.003, p_holm=0.919)",
+    "H3_gain_not_reducible_to_tokens_per_char": "SUPPORTED (gain grows with coarser fertility: +0.84 -> +1.49 -> +3.40 chrF)",
+    "capacity_confound": "ruled out: corr(parameter advantage, chrF gain) = -0.810",
+    "task_transfer": "no transfer; pearson r=-0.366 (p=0.333), spearman rho=-0.450, n=9"
+  },
+  "limitations": [
+    "Lines that could not be round-tripped exactly by every tokenizer condition were excluded from all splits: {'tgl': 1, 'ind': 0}. A non-invertible line would be mis-decoded if kept, so exclusion is strictly safer; the rate is under 0.5% and identical across conditions.",
+    "PROBE CIRCULARITY (measured): the Tagalog voice probe is solved outright by a trivial baseline that reads the <INF:...> token alone -- G15 accuracy 1.000 under MorphAustro-Tok vs 0.000 under matched BPE. It is reported as DIAGNOSTIC, not evidential, and carries no independent weight for H1; H1 rests on MT and NER, which are non-circular. The Indonesian classifier-agreement probe is a corruption-judgment task and is unaffected.",
+    "DESIGN REVISION (measured, not preferred): the Indonesian MT and NER arms were cut after the live gate run showed MorphAustro-Tok and matched BPE separate by only 0.18% in tokens/char on Indonesian (vs 7.00% on Tagalog), the mechanism touching 0.258% of tokens. H2 is tested by the classifier-agreement probe alone; its MT and NER claims go unrun. The freed 4.41 GPU-hours fund 5 seeds on Tagalog instead of 3 (t_crit 4.30 -> 2.78).",
+    "Malay/Indonesian pooling: REFUSED on measured FLORES+ divergence {'n_pairs': 997.0, 'identical_frac': 0.0, 'token_identical_frac': 0.0, 'mean_edit_ratio': 0.42486093184204343, 'type_jaccard': 0.3906840117498951}; ind runs alone.",
+    "Tagalog train (ParaCrawl, tgl) / test (FLORES+, fil_Latn) register gap: {'type_jaccard': 0.17865858167566367, 'test_types_unseen_in_train': 0.6088082901554405}.",
+    "LID backend for bitext filtering: function_word_heuristic.",
+    "MT training bitext is web-mined ParaCrawl; absolute scores are low and only controlled within-language contrasts are interpretable.",
+    "G9 is text-level only: OPUS Moses format carries no URL metadata, so URL-level contamination checking is not possible on the training side.",
+    "Parameter parity holds at matched vocabulary but NOT at matched fertility, where it is impossible by construction: {'tgl/F0': 0.14818779629912832, 'tgl/F1': 0.11520594611334778, 'tgl/F2': 0.0277554765454754, 'ind/F1': 0.0}. MorphAustro-Tok requires a larger vocabulary to reach a given tokens-per-character (morph-constrained merges are less efficient per entry), so it carries more embedding parameters at every sweep level. Any matched-fertility win for MorphAustro-Tok is therefore not separable from capacity and is reported as such."
+  ],
+  "skipped_components": [
+    {
+      "component": "Malay/Indonesian pooling",
+      "status": "SKIPPED",
+      "requires": [
+        "malay_indonesian_pooling"
+      ],
+      "reason": "measured divergence exceeds threshold: {'n_pairs': 997.0, 'identical_frac': 0.0, 'token_identical_frac': 0.0, 'mean_edit_ratio': 0.42486093184204343, 'type_jaccard': 0.3906840117498951}"
+    }
+  ],
+  "provenance": {
+    "flores_zsm:dev": {
+      "kind": "hf",
+      "source": "openlanguagedata/flores_plus",
+      "config": "zsm_Latn",
+      "n": 997,
+      "sha256": "540f5f9afc5859ea1f2cba3de307def19bfde9b7efc982b1c1b49e46e669a0fa",
+      "license": "CC-BY-SA-4.0",
+      "fetched_utc": "2026-08-26T16:26:19+00:00"
+    },
+    "flores_ind:dev": {
+      "kind": "hf",
+      "source": "openlanguagedata/flores_plus",
+      "config": "ind_Latn",
+      "n": 997,
+      "sha256": "6a0cbc0e3b9c06572ad65163256a9bc2cc7108a7133227c6fb5100afd841ab04",
+      "license": "CC-BY-SA-4.0",
+      "fetched_utc": "2026-08-26T16:29:19+00:00"
+    },
+    "paracrawl_en_tl:train": {
+      "kind": "opus",
+      "source": "https://object.pouta.csc.fi/OPUS-ParaCrawl/v9/moses/en-tl.txt.zip",
+      "config": null,
+      "n": 248689,
+      "sha256": "3497418592c2d19c859e90b642e5d4c222c91a92828fcac8694e262e2818f823",
+      "license": "CC0-1.0 (verify at fetch)",
+      "fetched_utc": "2026-08-26T16:26:37+00:00",
+      "zip_sha256": "fb2bfa61b3b0ba87621adf39ed512e2cffe8adb31def6aa0deba1fc1c889cdc6",
+      "members": [
+        "ParaCrawl.en-tl.en",
+        "ParaCrawl.en-tl.tl"
+      ],
+      "raw_lines": 248689
+    },
+    "flores_eng:dev": {
+      "kind": "hf",
+      "source": "openlanguagedata/flores_plus",
+      "config": "eng_Latn",
+      "n": 997,
+      "sha256": "d72fd76a996c87481408f70ab4e6b1f309f482255e349a218c5730ea913a6fab",
+      "license": "CC-BY-SA-4.0",
+      "fetched_utc": "2026-08-26T16:29:17+00:00"
+    },
+    "flores_eng:test": {
+      "kind": "hf",
+      "source": "openlanguagedata/flores_plus",
+      "config": "eng_Latn",
+      "n": 1012,
+      "sha256": "eb1bd2f509753ba3d2a573b3dd7f4da8665b41b0c454d487a330ef62cdc8b525",
+      "license": "CC-BY-SA-4.0",
+      "fetched_utc": "2026-08-26T16:29:18+00:00"
+    },
+    "flores_fil:dev": {
+      "kind": "hf",
+      "source": "openlanguagedata/flores_plus",
+      "config": "fil_Latn",
+      "n": 997,
+      "sha256": "ba1bfc962a758688ed12658da12c7cadead51eaa5cf68b9373f7e2e147bb8213",
+      "license": "CC-BY-SA-4.0",
+      "fetched_utc": "2026-08-26T16:26:54+00:00"
+    },
+    "flores_fil:test": {
+      "kind": "hf",
+      "source": "openlanguagedata/flores_plus",
+      "config": "fil_Latn",
+      "n": 1012,
+      "sha256": "639d6cbeb36133e6c716c7d2b3f246bf0335fba0daf230e584b32e5e8159079c",
+      "license": "CC-BY-SA-4.0",
+      "fetched_utc": "2026-08-26T16:26:55+00:00"
+    },
+    "wikiann_tl:train": {
+      "kind": "hf",
+      "source": "unimelb-nlp/wikiann",
+      "config": "tl",
+      "n": 10000,
+      "sha256": "dd2f1e821b842e423360b76cd7aa745bedbbe7a44c00e1d1a4e020cfe6451625",
+      "license": "ODC-BY-1.0",
+      "fetched_utc": "2026-08-26T16:27:01+00:00"
+    },
+    "wikiann_tl:dev": {
+      "kind": "hf",
+      "source": "unimelb-nlp/wikiann",
+      "config": "tl",
+      "n": 1000,
+      "sha256": "38c3a2a394ef25bc0d7d5de8949fbe7e021c0f6bb931b3cb6e4a9c3d3e8b4e92",
+      "license": "ODC-BY-1.0",
+      "fetched_utc": "2026-08-26T16:27:02+00:00"
+    },
+    "wikiann_tl:test": {
+      "kind": "hf",
+      "source": "unimelb-nlp/wikiann",
+      "config": "tl",
+      "n": 1000,
+      "sha256": "4bff40695e29c82832a97e69f599d6e1d9f59fb4a52f19be14470bb10a0f7440",
+      "license": "ODC-BY-1.0",
+      "fetched_utc": "2026-08-26T16:27:03+00:00"
+    },
+    "paracrawl_en_id:train": {
+      "kind": "opus",
+      "source": "https://object.pouta.csc.fi/OPUS-ParaCrawl-Bonus/v9/moses/en-id.txt.zip",
+      "config": null,
+      "n": 400000,
+      "sha256": "1200b0534c2da6f6527238d66a62e453b6ab04c806005f91e63e9a3c5f47b9e4",
+      "license": "CC0-1.0 (verify at fetch)",
+      "fetched_utc": "2026-08-26T16:29:02+00:00",
+      "zip_sha256": "c73aac4dd5b087333db3f75b6ae82b4976fefa95ffae1a713d124943f9c15644",
+      "members": [
+        "ParaCrawl-Bonus.en-id.en",
+        "ParaCrawl-Bonus.en-id.id"
+      ],
+      "raw_lines": 7133466
+    },
+    "flores_ind:test": {
+      "kind": "hf",
+      "source": "openlanguagedata/flores_plus",
+      "config": "ind_Latn",
+      "n": 1012,
+      "sha256": "365042ecfe835174ec8fb38a9859a17be12412d93a75d8b1cc3de536d11441ab",
+      "license": "CC-BY-SA-4.0",
+      "fetched_utc": "2026-08-26T16:29:20+00:00"
+    },
+    "wikiann_id:train": {
+      "kind": "hf",
+      "source": "unimelb-nlp/wikiann",
+      "config": "id",
+      "n": 12000,
+      "sha256": "73e6084d21b6207df075ca1e1dba15cde8cea9ec2e8957ec3475ce5c154154a3",
+      "license": "ODC-BY-1.0",
+      "fetched_utc": "2026-08-26T16:29:26+00:00"
+    },
+    "wikiann_id:dev": {
+      "kind": "hf",
+      "source": "unimelb-nlp/wikiann",
+      "config": "id",
+      "n": 10000,
+      "sha256": "e55849e4c0ed3661b8c368dea550cff546d4a3b313d473cfe3d34d151ad3a2a1",
+      "license": "ODC-BY-1.0",
+      "fetched_utc": "2026-08-26T16:29:28+00:00"
+    },
+    "wikiann_id:test": {
+      "kind": "hf",
+      "source": "unimelb-nlp/wikiann",
+      "config": "id",
+      "n": 10000,
+      "sha256": "f1d3048f1e8849ef47baa7767d12d29b2f05b502c1d9f05e95b8e8d21ca71c21",
+      "license": "ODC-BY-1.0",
+      "fetched_utc": "2026-08-26T16:29:30+00:00"
+    }
+  }
+}

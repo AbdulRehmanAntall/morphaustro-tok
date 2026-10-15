@@ -1,0 +1,32 @@
+# --- Model weights (~1.4 GB; too large for git — share via HF Hub / Releases) ---
+checkpoints/
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.ckpt
+
+# --- Downloaded corpora / caches (re-fetched by the notebooks with SHA-256 checks) ---
+data/
+cache/
+.cache/
+*.ftz
+wandb/
+
+# --- Secrets ---
+.env
+*.token
+
+# --- Python / Jupyter ---
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
